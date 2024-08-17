@@ -19,10 +19,10 @@ def livro_list_create(request):
       
       elif request.method == 'POST':
         serializer = LivroSerializer(data=request.data)
-        if serializers.is_valid():
+        if serializer.is_valid():
             serializer.save()
-            return Response(serializers.data, status=status.HTTP_201_CREATED)
-        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
       
 @api_view(['GET', 'PUT', 'DELETE'])
 def livro_details(request, pk):
