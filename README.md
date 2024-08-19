@@ -21,7 +21,7 @@ Esta aplicação foi feita com o intuito de aprender mais sobre a criação de A
 ## 🔨 Construído com:
 
 * 💻 VS Code
-* 🐍 Python : 3.11.9 
+* 🐍 Python 3.11.9 
 * 🛠️ Django Rest Framework
 
 ##
