@@ -34,7 +34,7 @@ Esta aplicação foi feita com o intuito de aprender mais sobre a criação de A
 
 # ⭐️ Começando:
 
-### Para obter uma cópia local e executar os projeto, siga as etapas a seguir:
+### Para obter uma cópia local e executar o projeto, siga as etapas a seguir:
 
 ##
 
