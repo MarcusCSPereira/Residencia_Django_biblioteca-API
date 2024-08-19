@@ -22,7 +22,7 @@ Esta aplicação foi feita com o intuito de aprender mais sobre a criação de A
 
 * 💻 VS Code
 * 🐍 Python : 3.11.9 
-* 🛠️ : Django Rest Framework
+* 🛠️ Django Rest Framework
 
 ##
 
@@ -38,7 +38,7 @@ Esta aplicação foi feita com o intuito de aprender mais sobre a criação de A
 
 ##
 
-### 💻 Pré-requisitos
+### 💻 Pré-requisitos:
 
 * Git
 ```sh
@@ -64,7 +64,7 @@ sudo apt-get install python3-pip
 
 ##
 
-### 🚀 Instalação
+### 🚀 Instalação:
  
 1. Clone o repositório
 ```sh
@@ -93,7 +93,7 @@ pip install django djangorestframework corsheaders
 ##
 
 <!-- USAGE EXAMPLES -->
-### 🐍 Utilizando o projeto
+### 🐍 Utilizando o projeto:
 
 1. Navegue até o diretório do projeto:
 ```sh
