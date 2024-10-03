@@ -43,3 +43,5 @@ class BookDetail(generics.RetrieveUpdateDestroyAPIView):
   queryset = Book.objects.all()
   serializer_class = LivroSerializer
   name = 'book-detail'
+  
+''' alo '''
