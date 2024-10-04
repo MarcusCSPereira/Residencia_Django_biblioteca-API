@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
-    'core'
+    'core',
+    'django_filters'
 ]
 
 MIDDLEWARE = [
@@ -52,6 +53,16 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware'
 ]
+
+REST_FRAMEWORK = {
+  "DEFAULT_PAGINATION_CLASS": "core.pagination.LimitOffsetPaginationWithUpperBound",
+  "PAGE_SIZE": 5,
+  "DEFAULT_FILTER_BACKENDS": (
+    "django_filters.rest_framework.DjangoFilterBackend",
+    "rest_framework.filters.SearchFilter",
+    "rest_framework.filters.OrderingFilter",
+  ),
+}
 
 ROOT_URLCONF = 'biblioteca.urls'
 
@@ -80,7 +91,7 @@ WSGI_APPLICATION = 'biblioteca.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'bib.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 

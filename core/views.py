@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from core.models import Categoria, Author, Book
 from core.serializers import CategoriaSerializer, AuthorSerializer, LivroSerializer
+from core.filters import BookFilter, AuthorFilter
 
 class APIRootView(generics.GenericAPIView):
     name = 'api-root'
@@ -17,6 +18,8 @@ class APIRootView(generics.GenericAPIView):
 class CategoriaList(generics.ListCreateAPIView):
     queryset = Categoria.objects.all()
     serializer_class = CategoriaSerializer
+    search_fields = ("^name",)
+    ordering_fields = ("name",)
     name = 'categoria-list'
     
 class CategoriaDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -27,7 +30,8 @@ class CategoriaDetail(generics.RetrieveUpdateDestroyAPIView):
 class AuthorList(generics.ListCreateAPIView):
   queryset = Author.objects.all()
   serializer_class = AuthorSerializer
-  name = 'autho-list'
+  filterset_class = AuthorFilter
+  name = 'author-list'
   
 class AuthorDetail(generics.RetrieveUpdateDestroyAPIView):
   queryset = Author.objects.all()
@@ -37,6 +41,9 @@ class AuthorDetail(generics.RetrieveUpdateDestroyAPIView):
 class BookList(generics.ListCreateAPIView):
   queryset = Book.objects.all()
   serializer_class = LivroSerializer
+  filterset_class = BookFilter
+  search_fields = ("^title",) #Aqui é importante a virgula
+  ordering_fields = ("title", "author" ,"categoria", "publicado_em")
   name = 'book-list'
   
 class BookDetail(generics.RetrieveUpdateDestroyAPIView):
