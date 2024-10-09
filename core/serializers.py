@@ -1,53 +1,63 @@
 from rest_framework import serializers
 from .models import Book, Author, Categoria
 
-class CategoriaSerializer(serializers.Serializer):
+
+class CategoriaSerializer(serializers.HyperlinkedModelSerializer):
     id = serializers.IntegerField(read_only=True)
     name = serializers.CharField(max_length=100)
-    
-    def create(self, validated_data):
-        return Categoria.objects.create(**validated_data)
-      
-    def update(self, instance, validated_data):
-        instance.name = validated_data.get('name', instance.name)
-        instance.save()
-        return instance
-      
-class AuthorSerializer(serializers.Serializer):
+
+    books = serializers.HyperlinkedRelatedField(
+        many=True,
+        read_only=True,
+        view_name="book-detail",
+    )
+
+    class Meta:
+        model = Categoria
+        fields = ["url", "id", "name", "books"]
+
+
+class AuthorSerializer(serializers.HyperlinkedModelSerializer):
     id = serializers.IntegerField(read_only=True)
     name = serializers.CharField(max_length=100)
     birth_date = serializers.DateField()
-    
-    def create(self, validated_data):
-        return Author.objects.create(**validated_data)
-    
-    def update(self, instance, validated_data):
-        instance.name = validated_data.get('name', instance.name)
-        instance.birth_date = validated_data.get('birth_date', instance.birth_date)
-        instance.save()
-        return instance
 
-class LivroSerializer(serializers.Serializer):
+    books = serializers.HyperlinkedRelatedField(
+        many=True,
+        read_only=True,
+        view_name="book-detail",
+    )
+
+    class Meta:
+        model = Author
+        fields = ["url", "id", "name", "birth_date", "books"]
+
+
+class LivroSerializer(serializers.HyperlinkedModelSerializer):
     id = serializers.IntegerField(read_only=True)
     title = serializers.CharField(max_length=100)
 
     # Para envio dos dados (criação e atualização)
-    author = serializers.PrimaryKeyRelatedField(queryset=Author.objects.all())
-    categoria = serializers.PrimaryKeyRelatedField(queryset=Categoria.objects.all())
+    categoria = serializers.SlugRelatedField(
+        queryset=Categoria.objects.all(), slug_field="name"
+    )
+    author = serializers.HyperlinkedRelatedField(
+        view_name="author-detail", queryset=Author.objects.all()
+    )
 
     # Para exibição apenas do campo 'name' nas respostas
-    author_name = serializers.CharField(source='author.name', read_only=True)
-    categoria_name = serializers.CharField(source='categoria.name', read_only=True)
+    author_name = serializers.CharField(source="author.name", read_only=True)
 
     publicado_em = serializers.DateField()
 
-    def create(self, validated_data):
-        return Book.objects.create(**validated_data)
-    
-    def update(self, instance, validated_data):
-        instance.title = validated_data.get('title', instance.title)
-        instance.author = validated_data.get('author', instance.author)
-        instance.categoria = validated_data.get('categoria', instance.categoria)
-        instance.publicado_em = validated_data.get('publicado_em', instance.publicado_em)
-        instance.save()
-        return instance
+    class Meta:
+        model = Book
+        fields = [
+            "url",
+            "id",
+            "title",
+            "author",
+            "author_name",
+            "categoria",
+            "publicado_em",
+        ]
