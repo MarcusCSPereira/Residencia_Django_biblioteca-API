@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'core',
-    'django_filters'
+    'django_filters',
+    'rest_framework.authtoken',
+    'drf_spectacular',
 ]
 
 MIDDLEWARE = [
@@ -62,6 +64,13 @@ REST_FRAMEWORK = {
     "rest_framework.filters.SearchFilter",
     "rest_framework.filters.OrderingFilter",
   ),
+  'DEFAULT_AUTHENTICATION_CLASSES': [
+    'rest_framework.authentication.TokenAuthentication',
+  ],
+  'DEFAULT_PERMISSION_CLASSES': [
+    'rest_framework.permissions.IsAuthenticated',
+  ],
+  'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 ROOT_URLCONF = 'biblioteca.urls'
@@ -137,4 +146,7 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+CORS_ALLOWED_ORIGINS = [
+  "http://192.168.1.100",
+]
 CORS_ALLOW_ALL_ORIGINS = True

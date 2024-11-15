@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Book, Author, Categoria
+from .models import Book, Author, Categoria, Colecao
 
 class CategoriaSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
@@ -51,3 +51,8 @@ class LivroSerializer(serializers.Serializer):
         instance.publicado_em = validated_data.get('publicado_em', instance.publicado_em)
         instance.save()
         return instance
+      
+class ColecaoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Colecao
+        fields = '__all__'
