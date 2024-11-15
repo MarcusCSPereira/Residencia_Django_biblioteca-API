@@ -61,6 +61,10 @@ class LivroSerializer(serializers.HyperlinkedModelSerializer):
         instance.save()
         return instance
       
+    class Meta:
+        model = Book
+        fields = ["url", "id", "title", "author", "author_name", "categoria", "publicado_em"]
+      
 class ColecaoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Colecao
