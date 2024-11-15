@@ -1,5 +1,9 @@
 # Residência prática_01:
 
+## 👥 Equipe
+
+Marcus César Santos Pereira e Gabriel Dos Santos
+
 ## 🔎 Sobre o Projeto
 
 Este projeto consiste em uma API RESTful para uma biblioteca, desenvolvida utilizando Django e Django Rest Framework. O principal objetivo da API é permitir a gestão de livros, oferecendo funcionalidades como criação, leitura, atualização e exclusão (CRUD) de registros de livros. Com isso, é possível realizar operações como adicionar novos livros, visualizar a lista de livros disponíveis, editar informações de livros existentes e remover livros da biblioteca.
