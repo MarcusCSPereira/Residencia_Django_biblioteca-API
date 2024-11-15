@@ -2,7 +2,7 @@ asgiref==3.8.1
 attrs==24.2.0
 cachetools==5.5.0
 coverage==7.6.4
-Django==5.0.7
+Django==5.0.9
 django-cors-headers==4.4.0
 django-filter==24.3
 django-rql==4.4.1
