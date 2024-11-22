@@ -13,6 +13,7 @@ from rest_framework.serializers import ModelSerializer
 from drf_spectacular.utils import extend_schema, OpenApiExample
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
+from rest_framework.authentication import TokenAuthentication
 
 
 class EmptySerializer(serializers.Serializer):
@@ -63,8 +64,7 @@ class UserSerializer(ModelSerializer):
 class UserCreateView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [permissions.AllowAny]
-    
+    permission_classes = []  # Remove a autenticação para permitir criação
 
 @extend_schema(
     summary="Obter Token de Autenticação",
@@ -97,26 +97,30 @@ class CategoriaList(generics.ListCreateAPIView):
     search_fields = ("^name",)
     ordering_fields = ("name",)
     name = "categoria-list"
-
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
 class CategoriaDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Categoria.objects.all()
     serializer_class = CategoriaSerializer
     name = "categoria-detail"
-
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
 class AuthorList(generics.ListCreateAPIView):
     queryset = Author.objects.all()
     serializer_class = AuthorSerializer
     filterset_class = AuthorFilter
     name = "author-list"
-
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
 class AuthorDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Author.objects.all()
     serializer_class = AuthorSerializer
     name = "author-detail"
-
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
 class BookList(generics.ListCreateAPIView):
     queryset = Book.objects.all()
@@ -125,17 +129,22 @@ class BookList(generics.ListCreateAPIView):
     search_fields = ("^title",)  # Aqui é importante a virgula
     ordering_fields = ("title", "author", "categoria", "publicado_em")
     name = "book-list"
-
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
 class BookDetail(generics.RetrieveUpdateDestroyAPIView):
   queryset = Book.objects.all()
   serializer_class = LivroSerializer
   name = 'book-detail'
+  authentication_classes = [TokenAuthentication]
+  permission_classes = [IsAuthenticated]
+  
 class ColecaoListCreate(generics.ListCreateAPIView):
   queryset = Colecao.objects.all()
   serializer_class = ColecaoSerializer
   permission_classes = [permissions.IsAuthenticated]
   name = 'colecao-list-create'
+  authentication_classes = [TokenAuthentication]
 
   def perform_create(self, serializer):
     # Associa o colecionador como o usuário autenticado
@@ -146,3 +155,5 @@ class ColecaoDetail(generics.RetrieveUpdateDestroyAPIView):
   serializer_class = ColecaoSerializer
   permission_classes = [permissions.IsAuthenticated, CustomPermission]
   name = 'colecao-detail'
+  authentication_classes = [TokenAuthentication]
+  permission_classes = [IsAuthenticated]
