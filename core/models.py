@@ -27,14 +27,15 @@ class Book(models.Model):
 
     def __str__(self):
         return self.title
-      
+
+
 class Colecao(models.Model):
-  nome = models.CharField(max_length=100, unique=True)
-  descricao = models.TextField(blank=True)
-  livros = models.ManyToManyField(Book, related_name="colecoes")
-  colecionador = models.ForeignKey(User, on_delete=models.CASCADE,
-  related_name="colecoes")
-  
-  def __str__(self):
-    return f"{self.nome} - {self.colecionador.username}"
-      
+    nome = models.CharField(max_length=100, unique=True)
+    descricao = models.TextField(blank=True)
+    livros = models.ManyToManyField(Book, related_name="colecoes")
+    colecionador = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="colecoes"
+    )
+
+    def __str__(self):
+        return f"{self.nome} - {self.colecionador.username}"

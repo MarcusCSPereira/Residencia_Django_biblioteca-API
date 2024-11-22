@@ -52,20 +52,34 @@ class LivroSerializer(serializers.HyperlinkedModelSerializer):
 
     def create(self, validated_data):
         return Book.objects.create(**validated_data)
-    
+
     def update(self, instance, validated_data):
-        instance.title = validated_data.get('title', instance.title)
-        instance.author = validated_data.get('author', instance.author)
-        instance.categoria = validated_data.get('categoria', instance.categoria)
-        instance.publicado_em = validated_data.get('publicado_em', instance.publicado_em)
+        instance.title = validated_data.get("title", instance.title)
+        instance.author = validated_data.get("author", instance.author)
+        instance.categoria = validated_data.get("categoria", instance.categoria)
+        instance.publicado_em = validated_data.get(
+            "publicado_em", instance.publicado_em
+        )
         instance.save()
         return instance
-      
+
     class Meta:
         model = Book
-        fields = ["url", "id", "title", "author", "author_name", "categoria", "publicado_em"]
-      
+        fields = [
+            "url",
+            "id",
+            "title",
+            "author",
+            "author_name",
+            "categoria",
+            "publicado_em",
+        ]
+
+
 class ColecaoSerializer(serializers.ModelSerializer):
+    livros = serializers.PrimaryKeyRelatedField(queryset=Book.objects.all(), many=True)
+
     class Meta:
         model = Colecao
-        fields = '__all__'
+        fields = ["id", "nome", "descricao", "livros", "colecionador"]
+        read_only_fields = ["colecionador"]
