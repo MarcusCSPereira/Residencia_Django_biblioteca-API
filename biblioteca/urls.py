@@ -1,4 +1,5 @@
 from django.contrib import admin
+from rest_framework.authtoken import views
 from django.urls import include, path
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
 from core.views import APIRootView, CustomAuthToken, UserCreateView
@@ -6,7 +7,7 @@ from core.views import APIRootView, CustomAuthToken, UserCreateView
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin_urls'),
     path('api/', include('core.urls'), name='core_urls'),
-    path('api/token/', CustomAuthToken.as_view(), name='api-token'),
+    path('api-token-auth/', views.obtain_auth_token, name='api-token-auth'),
     path('api/users/', UserCreateView.as_view(), name='user-create'),
     
     # Endpoints para a documentação da API
