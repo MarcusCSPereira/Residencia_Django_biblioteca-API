@@ -155,9 +155,9 @@ class ColecaoListCreate(generics.ListCreateAPIView):
   name = 'colecao-list-create'
   authentication_classes = [TokenAuthentication]
 
-    def perform_create(self, serializer):
-        # Associa o colecionador como o usuário autenticado
-        serializer.save(colecionador=self.request.user)
+  def perform_create(self, serializer):
+      # Associa o colecionador como o usuário autenticado
+      serializer.save(colecionador=self.request.user)
 
 
 class ColecaoDetail(generics.RetrieveUpdateDestroyAPIView):
