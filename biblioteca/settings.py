@@ -64,14 +64,14 @@ REST_FRAMEWORK = {
     "rest_framework.filters.SearchFilter",
     "rest_framework.filters.OrderingFilter",
   ),
-  'DEFAULT_AUTHENTICATION_CLASSES': [
+  'DEFAULT_AUTHENTICATION_CLASSES': (
     'rest_framework.authentication.TokenAuthentication',
     "rest_framework.authentication.BasicAuthentication",
     "rest_framework.authentication.SessionAuthentication"
-  ],
-  'DEFAULT_PERMISSION_CLASSES': [
+  ),
+  'DEFAULT_PERMISSION_CLASSES': (
     'rest_framework.permissions.IsAuthenticated',
-  ],
+  ),
   'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
   
   "DEFAULT_THROTTLE_CLASSES": (
@@ -79,10 +79,10 @@ REST_FRAMEWORK = {
       "rest_framework.throttling.UserRateThrottle",
   ),
   "DEFAULT_THROTTLE_RATES": {
-      "anon": "3/hour",
-      "user": "10/hour",
-      "drones": "20/hour",
-      "pilots": "15/hour",
+      "anon": "100/hour",
+      "user": "300/hour",
+      "drones": "150/hour",
+      "pilots": "150/hour",
   },
 }
 
