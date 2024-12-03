@@ -106,30 +106,28 @@ class CategoriaList(generics.ListCreateAPIView):
     search_fields = ("^name",)
     ordering_fields = ("name",)
     name = "categoria-list"
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 class CategoriaDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Categoria.objects.all()
     serializer_class = CategoriaSerializer
     name = "categoria-detail"
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 class AuthorList(generics.ListCreateAPIView):
     queryset = Author.objects.all()
     serializer_class = AuthorSerializer
     filterset_class = AuthorFilter
     name = "author-list"
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
+    authentication_classes = (TokenAuthentication,)
 
 class AuthorDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Author.objects.all()
     serializer_class = AuthorSerializer
     name = "author-detail"
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 class BookList(generics.ListCreateAPIView):
     queryset = Book.objects.all()
@@ -138,22 +136,20 @@ class BookList(generics.ListCreateAPIView):
     search_fields = ("^title",)  # Aqui é importante a virgula
     ordering_fields = ("title", "author", "categoria", "publicado_em")
     name = "book-list"
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 class BookDetail(generics.RetrieveUpdateDestroyAPIView):
   queryset = Book.objects.all()
   serializer_class = LivroSerializer
   name = 'book-detail'
-  authentication_classes = [TokenAuthentication]
-  permission_classes = [IsAuthenticated]
+  authentication_classes = (TokenAuthentication,)
+  permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
   
 class ColecaoListCreate(generics.ListCreateAPIView):
   queryset = Colecao.objects.all()
   serializer_class = ColecaoSerializer
-  permission_classes = [permissions.IsAuthenticated]
+  permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
   name = 'colecao-list-create'
-  authentication_classes = [TokenAuthentication]
 
   def perform_create(self, serializer):
       # Associa o colecionador como o usuário autenticado
@@ -163,7 +159,7 @@ class ColecaoListCreate(generics.ListCreateAPIView):
 class ColecaoDetail(generics.RetrieveUpdateDestroyAPIView):
   queryset = Colecao.objects.all()
   serializer_class = ColecaoSerializer
-  permission_classes = [permissions.IsAuthenticated, CustomPermission]
+  permission_classes = (permissions.IsAuthenticatedOrReadOnly, CustomPermission,)
   name = 'colecao-detail'
-  authentication_classes = [TokenAuthentication]
-  permission_classes = [IsAuthenticated]
+  authentication_classes = (TokenAuthentication,)
+  permission_classes = (IsAuthenticated,)
